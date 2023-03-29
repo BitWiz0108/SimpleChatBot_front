@@ -8,11 +8,12 @@ import { useState } from "react";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { MultiSelect } from "react-multi-select-component";
 import Select from 'react-select';
+import TextAreaComp from "../components/TextAreaComp";
 
 import "../styles.css";
 
 
-const SignupPage = () => {
+const DashboardPage = () => {
   const navigate = useNavigate();
 
   const [isRequest, setIsRequest] = useState(false);
@@ -56,29 +57,21 @@ const SignupPage = () => {
     initialValues: {
       username: "",
       password: "",
-      confirmPassword: "",
-      email: ""
+      confirmPassword: ""
     },
     validationSchema: yup.object({
       username: yup.string()
-        .required("username is required")
-        .min(6)
-        .max(15),
-      email: yup.string()
-        .required("email is required"),
+        .required("username is required").min(6).max(15),
       password: yup.string()
-        .required("password is requried")
-        .min(8),
+        .required("password is requried").min(8),
       confirmPassword: yup.string()
-        .required("Confirm password is requried")
-        .min(8)
-        .oneOf([yup.ref("password")], "Confirm password not match")
+        .required("Confirm password is requried").min(8).oneOf([yup.ref("password")], "Confirm password not match")
     }),
     onSubmit: (values) => onSignUp(values)
   });
 
-  const onSignUp = async ({ username, password, email }) => {
-    const { response, err } = await userSignUp({ username, password, email });
+  const onSignUp = async ({ username, password }) => {
+    const { response, err } = await userSignUp({ username, password });
     if (response) {
       const reresponse = churchAcc({ selected, selected1, selected2 });
       toast.success("Signup success");
@@ -87,34 +80,34 @@ const SignupPage = () => {
     if (err) toast.error(err.message);
   };
 
+  const [text, setText] = useState('');
+
+  const handleTextChange = event => {
+    setText(event.target.value);
+    console.log("this is the text:", text);
+  }
+
+  const onChangePrompt = event => {
+    localStorage.setItem("basePrompt", text);
+    navigate("/");
+  }
+
   return (
-    <Box component="form" noValidate onSubmit={form.handleSubmit}>
+    <Box component="form" noValidate onSubmit={form.handleSubmit} sx={{ "margin": "50px 100px" }}>
       <Stack spacing={2}>
-        <h1>Register a Church Account</h1>
-        <TextField fullWidth placeholder="username" name="username" value={form.values.username} onChange={form.handleChange} error={form.touched.username && form.errors.username != undefined} helperText={form.touched.username && form.errors.username} />
-        <TextField fullWidth placeholder="email" name="email" value={form.values.email} onChange={form.handleChange} error={form.touched.email && form.errors.email != undefined} helperText={form.touched.email && form.errors.email} />
-        <TextField fullWidth type="password" placeholder="password" name="password" value={form.values.password} onChange={form.handleChange} error={form.touched.password && form.errors.password != undefined} helperText={form.touched.password && form.errors.password} />
-        <TextField fullWidth type="password" placeholder="Confirm password" name="confirmPassword" value={form.values.confirmPassword} onChange={form.handleChange} error={form.touched.confirmPassword && form.errors.confirmPassword != undefined} helperText={form.touched.confirmPassword && form.errors.confirmPassword} />
-        <h1>Please answer the following questions</h1>
-        &nbsp;
-        <h2>Please choose one that express you. (Only One choice)</h2>
-        <Select options={options} value={selected} onChange={setSelected} labelledBy={"Select"} isCreatable={true} style={{ color: "red" }} />
-        &nbsp;
+        <h1>Prompt Sentence</h1>
+        <TextAreaComp defaultValue={localStorage.getItem("basePrompt")} textValue={text} onTextAreaChange={handleTextChange} />
+        <h1>Modify Screening Questions</h1>
+        <Select options={options} value={selected} onChange={setSelected} labelledBy={"Select"} isCreatable={true} style={{ color: "red" }} /> &nbsp;
         <h2>Please choose one that express you. (Multiple choices)</h2>
         <MultiSelect options={options_1} value={selected1} onChange={setSelected1} labelledBy={"Select"} isCreatable={true} />
-        &nbsp;
         <h2>Please choose one that express you. (Multiple choices)</h2>
         <MultiSelect options={options_2} value={selected2} onChange={setSelected2} labelledBy={"Select"} isCreatable={true} color="success" />
-        <LoadingButton type="submit" size="large" variant="contained" loading={isRequest} color="success" >
-          signup
-        </LoadingButton>
-        <Button component={Link} to="/signin" size="small">
-          signin
-        </Button>
+        <LoadingButton type="submit" size="large" variant="contained" loading={isRequest} onClick={onChangePrompt} color="success" > Change </LoadingButton>
       </Stack>
     </Box>
 
   );
 };
 
-export default SignupPage;
+export default DashboardPage;

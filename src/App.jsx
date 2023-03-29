@@ -6,7 +6,8 @@ import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import SigninPage from "./pages/SigninPage";
 import ScreeningQues from "./pages/ScreeningQuestions";
-
+import DashboardPage from "./pages/Dashboard";
+import SettingsPage from "./pages/Settings";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { ToastContainer } from "react-toastify";
@@ -48,8 +49,16 @@ function App() {
           } />
           <Route path="/ques" element={
             // <AuthRoute>
-              <ScreeningQues />
+            <ScreeningQues />
             // </AuthRoute>
+          } />
+          <Route path="/dashboard" element={
+            // <AuthRoute>
+            <DashboardPage />
+            // </AuthRoute>
+          } />
+          <Route path="/settings" element={
+            <SettingsPage />
           } />
         </Routes>
       </BrowserRouter>

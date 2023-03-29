@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+// import HomeIcon from "@mui/icons-material/homeicon"
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { chatCompletion } from "../api/chat.api";
 import { toast } from "react-toastify";
@@ -7,7 +8,7 @@ import TypeWriter from "typewriter-effect";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Stack, Box, Typography, IconButton, FormControl, OutlinedInput, CircularProgress } from "@mui/material";
-import { MultiSelect } from "react-multi-select-component";
+import TypewriterComp  from "../components/TypeWriterComp";
 
 
 const messageType = {
@@ -48,10 +49,10 @@ const HomePage = () => {
 
     setMessages(newMessages);
     setQuestion("");
-    setOnRequest(true);
+    // setOnRequest(true);
 
     const { response, err } = await chatCompletion({ prompt: question });
-
+    console.log("RT", response.text);
     if (response) {
       setMessages([...newMessages, {
         type: messageType.answer,
@@ -74,6 +75,14 @@ const HomePage = () => {
     navigate("/signin");
   };
 
+  const onGoDashboard = () => {
+    navigate("/dashboard");
+  };
+
+  const onGoSettings = () => {
+    navigate("/settings");
+  }
+
   useEffect(() => {
     setTimeout(() => {
       chatWrapperRef.current.addEventListener("DOMNodeInserted", e => {
@@ -86,86 +95,45 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Stack
-      alignItems="center"
-      justifyContent="space-between"
-      sx={{ height: "100%" }}
-    >
+    <Stack alignItems="center" justifyContent="space-between" sx={{ height: "100%" }} >
       <Header bg borderBottom>
-        <Box sx={{
-          width: "100%",
-          height: "100%",
-          position: "relative",
-          paddingX: 2,
-          maxWidth: "md"
-        }}>
-          <Typography
-            variant="h6"
-            fontWeight="700"
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)"
-            }}
-          >
+        <Box sx={{ width: "100%", height: "100%", position: "relative", paddingX: 2, maxWidth: "md" }}>
+          <Typography variant="h6" fontWeight="700" sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
             {username}
           </Typography>
-          <IconButton
-            onClick={onSignOut}
-            sx={{
-              position: "absolute",
-              top: "50%",
-              right: "16px",
-              transform: "translateY(-50%)"
-            }}
-          >
+          <IconButton onClick={onSignOut} sx={{ position: "absolute", top: "50%", right: "16px", transform: "translateY(-50%)" }} >
             <LogoutOutlinedIcon />
+          </IconButton>
+          <IconButton onClick={onGoDashboard} sx={{ position: "absolute", top: "50%", right: "150px", transform: "translateY(-50%)" }} >
+            Dashboard
+          </IconButton>
+          <IconButton onClick={onGoSettings} sx={{ position: "absolute", top: "50%", right: "50px", transform: "translateY(-50%)" }} >
+            Settings
           </IconButton>
         </Box>
       </Header>
 
-      <Box ref={chatWrapperRef} sx={{
-        height: "100%",
-        position: "fixed",
-        zIndex: 1,
-        maxWidth: "md",
-        width: "100%",
-        overflowY: "auto",
-        paddingTop: "60px",
-        paddingBottom: "90px",
-        "&::-webkit-scrollbar": {
-          width: "0px"
-        }
-      }}>
-        <Box sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          maxWidth: "md",
-          width: "100%"
-        }}>
+      <Box ref={chatWrapperRef} sx={{ height: "100%", position: "fixed", zIndex: 1, maxWidth: "md", width: "100%", overflowY: "auto", paddingTop: "60px", paddingBottom: "90px", "&::-webkit-scrollbar": { width: "0px" } }}>
+        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", maxWidth: "md", width: "100%" }}>
           {messages.map((item, index) => (
             <Box key={index} padding={1}>
-              <Box sx={{
-                padding: 2,
-                bgcolor: item.type === messageType.answer && "#2f2f2f",
-                borderRadius: 3
-              }}>
+              <Box sx={{ padding: 2, bgcolor: item.type === messageType.answer && "#2f2f2f", borderRadius: 3 }}>
                 {index === messages.length - 1 ? (
                   item.type === messageType.answer ? (
-                    <TypeWriter onInit={(writer) => {
-                      writer.typeString(item.content)
-                        .callFunction(() => {
-                          document.querySelector(".Typewriter__cursor").style.display = "none";
-                          setOnRequest(false);
-                          setTimeout(() => {
-                            inputRef.current.focus();
-                          }, 200);
-                        })
-                        .changeDelay(50)
-                        .start();
-                    }} />
+                    <TypewriterComp text={item.content}></TypewriterComp>
+                    // <TypeWriter onInit={(writer) => {
+                    //   writer.typeString(item.content)
+                    //     .callFunction(() => {
+                    //       document.querySelector(".Typewriter__cursor").style.display = "none";
+                    //       setOnRequest(false);
+                    //       setTimeout(() => {
+                    //         inputRef.current.focus();
+                    //       }, 200);
+                    //     })
+                    //     // .changeDelay(10)
+                    //     // .typeSpeed(50) // Decrease the typing speed
+                    //     .start();
+                    // }} />
                   ) : item.content
                 ) : (
                   item.content
@@ -175,43 +143,11 @@ const HomePage = () => {
           ))}
         </Box>
       </Box>
-
-      <Stack
-        width="100%"
-        alignItems="center"
-        justifyContent="center"
-        borderTop="1px solid #2c2c2c"
-        bgcolor="#000"
-        zIndex={3}
-      >
-        <Box
-          padding={2}
-          width="100%"
-          maxWidth="md"
-        >
-          <FormControl fullWidth variant="outlined">
-            <OutlinedInput
-              inputRef={inputRef}
-              sx={{
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none"
-                }
-              }}
-              endAdornment={
-                onRequest ? (
-                  <CircularProgress size="1.5rem" />
-                ) : (
-                  <SendOutlinedIcon />
-                )
-              }
-              autoFocus
-              disabled={onRequest}
-              onKeyUp={onEnterPress}
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Ask something..."
-            />
-          </FormControl>
+      <Stack width="100%" alignItems="center" justifyContent="center" borderTop="1px solid #2c2c2c" bgcolor="#000" zIndex={3} >
+        <Box padding={2} width="100%" maxWidth="md" > <FormControl fullWidth variant="outlined">
+          <OutlinedInput inputRef={inputRef} sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }} endAdornment={onRequest ? (<CircularProgress size="1.5rem" />) : (<SendOutlinedIcon />)}
+            autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Ask something..." />
+        </FormControl>
         </Box>
       </Stack>
     </Stack>

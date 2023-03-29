@@ -13,3 +13,13 @@ html {
 .rmsc{
   color:deepskyblue;
 }
+
+.textareacomp {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  height: 181px;
+  border-radius: 0.3rem;
+}
