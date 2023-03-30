@@ -3,7 +3,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { userSignUp, churchAcc } from "../api/user.api";
+import { userSignUp } from "../api/user.api";
 import { useState } from "react";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { MultiSelect } from "react-multi-select-component";
@@ -78,9 +78,9 @@ const SignupPage = () => {
   });
 
   const onSignUp = async ({ username, password, email }) => {
-    const { response, err } = await userSignUp({ username, password, email });
+    const { response, err } = await userSignUp({ username, password, email, selected, selected1, selected2 });
     if (response) {
-      const reresponse = churchAcc({ selected, selected1, selected2 });
+      // const reresponse = churchAcc({ selected, selected1, selected2 });
       toast.success("Signup success");
       navigate("/signin");
     }

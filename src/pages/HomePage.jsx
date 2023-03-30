@@ -4,7 +4,6 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { chatCompletion } from "../api/chat.api";
 import { toast } from "react-toastify";
-import TypeWriter from "typewriter-effect";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Stack, Box, Typography, IconButton, FormControl, OutlinedInput, CircularProgress } from "@mui/material";

@@ -22,4 +22,6 @@ html {
   letter-spacing: 0.00938em;
   height: 181px;
   border-radius: 0.3rem;
+  width:100%;
+  padding: 15px;
 }

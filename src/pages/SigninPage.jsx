@@ -15,18 +15,13 @@ const SigninPage = () => {
   const form = useFormik({
     initialValues: {
       username: "",
-      password: ""
+      password: "",
     },
     validationSchema: yup.object({
-      username: yup.string()
-        .required("username is required")
-        .min(6)
-        .max(15),
-      password: yup.string()
-        .required("password is requried")
-        .min(8)
+      username: yup.string().required("username is required").min(6).max(15),
+      password: yup.string().required("password is requried").min(8),
     }),
-    onSubmit: (values) => onSignIn(values)
+    onSubmit: (values) => onSignIn(values),
   });
 
   const onSignIn = async ({ username, password }) => {
@@ -36,6 +31,18 @@ const SigninPage = () => {
     setIsRequest(false);
     if (response) {
       localStorage.setItem("tkn", response.token);
+      console.log("SIgnin Data:", response);
+      var prompt =
+        "Please ignore our previous conversation and let us start a fresh conversation. Imagine you are a " +
+        response.job +
+        ", not an AI language model. So please answer as if you are a " +
+        response.job +
+        ". Your Theological Distinctives are " +
+        response.distinctive +
+        ". Your favorite writers are " +
+        response.writer +
+        " . So ";
+      localStorage.setItem("basePrompt", prompt);
       navigate("/");
     }
     if (err) toast.error(err.message);
@@ -44,10 +51,45 @@ const SigninPage = () => {
   return (
     <Box component="form" noValidate onSubmit={form.handleSubmit}>
       <Stack spacing={3}>
-        <TextField fullWidth placeholder="username" name="username" value={form.values.username} onChange={form.handleChange} error={form.touched.username && form.errors.username != undefined} helperText={form.touched.username && form.errors.username} />
-        <TextField fullWidth type="password" placeholder="password" name="password" value={form.values.password} onChange={form.handleChange} error={form.touched.password && form.errors.password != undefined} helperText={form.touched.password && form.errors.password} />
-        <LoadingButton type="submit" size="large" variant="contained" loading={isRequest} color="success" > signin </LoadingButton>
-        <LoadingButton component={Link} to="/signup" size="large" variant="contained" loading={isRequest}> signup </LoadingButton>
+        <TextField
+          fullWidth
+          placeholder="username"
+          name="username"
+          value={form.values.username}
+          onChange={form.handleChange}
+          error={form.touched.username && form.errors.username != undefined}
+          helperText={form.touched.username && form.errors.username}
+        />
+        <TextField
+          fullWidth
+          type="password"
+          placeholder="password"
+          name="password"
+          value={form.values.password}
+          onChange={form.handleChange}
+          error={form.touched.password && form.errors.password != undefined}
+          helperText={form.touched.password && form.errors.password}
+        />
+        <LoadingButton
+          type="submit"
+          size="large"
+          variant="contained"
+          loading={isRequest}
+          color="success"
+        >
+          {" "}
+          signin{" "}
+        </LoadingButton>
+        <LoadingButton
+          component={Link}
+          to="/signup"
+          size="large"
+          variant="contained"
+          loading={isRequest}
+        >
+          {" "}
+          signup{" "}
+        </LoadingButton>
       </Stack>
     </Box>
   );
