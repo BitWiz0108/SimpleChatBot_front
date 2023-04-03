@@ -21,14 +21,9 @@ const TypewriterComp = ({ text }) => {
     return () => clearInterval(interval);
   }, [text, stopTyping]);
 
-  const handleStopTyping = () => {
-    setStopTyping(true);
-  };
-
   return (
     <div>
       <span>{displayText}</span>
-      <button onClick={handleStopTyping}>Stop Generating</button>
     </div>
   );
 };

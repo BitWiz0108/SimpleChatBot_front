@@ -1,13 +1,7 @@
 import "react-toastify/dist/ReactToastify.css";
 
-import AuthRoute from "./components/AuthRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
-import SignupPage from "./pages/SignupPage";
-import SigninPage from "./pages/SigninPage";
-import ScreeningQues from "./pages/ScreeningQuestions";
-import DashboardPage from "./pages/Dashboard";
-import SettingsPage from "./pages/Settings";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { ToastContainer } from "react-toastify";
@@ -15,7 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const theme = createTheme({
-    palette: { mode: "dark" }
+    palette: { mode: "light" }
   });
 
   return (
@@ -36,29 +30,6 @@ function App() {
             <ProtectedRoute>
               <HomePage />
             </ProtectedRoute>
-          } />
-          <Route path="/signin" element={
-            <AuthRoute>
-              <SigninPage />
-            </AuthRoute>
-          } />
-          <Route path="/signup" element={
-            <AuthRoute>
-              <SignupPage />
-            </AuthRoute>
-          } />
-          <Route path="/ques" element={
-            // <AuthRoute>
-            <ScreeningQues />
-            // </AuthRoute>
-          } />
-          <Route path="/dashboard" element={
-            // <AuthRoute>
-            <DashboardPage />
-            // </AuthRoute>
-          } />
-          <Route path="/settings" element={
-            <SettingsPage />
           } />
         </Routes>
       </BrowserRouter>

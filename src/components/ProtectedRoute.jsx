@@ -10,26 +10,23 @@ const ProtectedRoute = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkToken = async () => {
-      setIsLoading(true);
-
-      const { response, err } = await userCheckTkn();
-
-      if (err) {
-        localStorage.removeItem("tkn");
-        navigate("/signin");
-      }
-
-      if (response) {
-        localStorage.setItem("username", response.username);
-        setIsLoading(false);
-      }
-    };
-
-    const tkn = localStorage.getItem("tkn");
-
-    if (tkn) checkToken();
-    else navigate("/signin");
+    // const checkToken = async () => {
+    //   setIsLoading(true);
+    //   const { response, err } = await userCheckTkn();
+    //   if (err) {
+    //     localStorage.removeItem("tkn");
+    //     navigate("/signin");
+    //   }
+    //   if (response) {
+    //     localStorage.setItem("username", response.username);
+    //     setIsLoading(false);
+    //   }
+    // };
+    localStorage.setItem("username", "public user");
+    setIsLoading(false);
+    // const tkn = localStorage.getItem("tkn");
+    // if (tkn) checkToken();
+    // else navigate("/signin");
   }, [navigate]);
 
   return (

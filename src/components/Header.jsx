@@ -5,7 +5,7 @@ const Header = (props) => {
     <Box sx={{
       zIndex: 2,
       width: "100%",
-      height: 60,
+      height: 150,
       bgcolor: props.bg && "#000",
       display: "flex",
       alignItems: "center",
