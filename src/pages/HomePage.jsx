@@ -90,7 +90,7 @@ const HomePage = () => {
       <Stack width="100%" alignItems="center" justifyContent="center" borderTop="1px solid #c6c8cc" bgcolor="#F5F5DC" zIndex={3} >
         <Box padding={2} width="100%" maxWidth="md" > <FormControl fullWidth variant="outlined">
           <OutlinedInput inputRef={inputRef} sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }} endAdornment={onRequest ? (<CircularProgress size="1.5rem" />) : (<SendOutlinedIcon />)}
-            autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Ask something..." />
+            autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Send a message..." />
         </FormControl>
         </Box>
       </Stack>
