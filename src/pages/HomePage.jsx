@@ -63,7 +63,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Stack alignItems="center" justifyContent="space-between" sx={{ height: "100%", backgroundColor:"#F5F5DC"}} >
+    <Stack alignItems="center" justifyContent="space-between" sx={{ padding:"10rem, 15rem", height: "100%", backgroundColor:"#F5F5DC"}} >
       <Header bg borderBottom>
        {/* <Box sx={{ width: "100%", height: "100%", position: "relative", paddingX: 2, maxWidth: "md" }}>
         </Box> */}
