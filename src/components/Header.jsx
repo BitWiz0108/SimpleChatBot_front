@@ -4,13 +4,14 @@ const Header = (props) => {
   return (
     <Box sx={{
       zIndex: 2,
-      width: "100%",
-      height: 150,
-      bgcolor: props.bg && "#000",
+      width: "75%",
+      height: "200px",
+      // border: "solid 1px",
+      bgcolor: "#F8D546",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      borderBottom: props.borderBottom && "1px solid #2c2c2c"
+      // borderBottom: props.borderBottom && "1px solid #2c2c2c"
     }}>
       {props.children}
     </Box>

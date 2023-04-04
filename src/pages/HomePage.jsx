@@ -3,9 +3,10 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { chatCompletion } from "../api/chat.api";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
-import { Stack, Box, FormControl, OutlinedInput, CircularProgress } from "@mui/material";
-import TypewriterComp  from "../components/TypeWriterComp";
+import { Stack, Box, FormControl, OutlinedInput, CircularProgress, Button } from "@mui/material";
+import TypewriterComp from "../components/TypeWriterComp";
 import Image from 'mui-image';
+import { Transfer } from "antd";
 
 const messageType = {
   answer: "answer",
@@ -63,18 +64,15 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Stack alignItems="center" justifyContent="space-between" sx={{ padding:"10rem, 15rem", height: "100%", backgroundColor:"#F5F5DC"}} >
-      <Header bg borderBottom>
-       {/* <Box sx={{ width: "100%", height: "100%", position: "relative", paddingX: 2, maxWidth: "md" }}>
-        </Box> */}
-        <Image src="https://picsum.photos/id/999/2000" height=" 100% " width=" 100%" bgColor="inherit" />
+    <Stack alignItems="center" justifyContent="space-between" sx={{ padding: "10rem, 15rem", fontFamily: "IBM Plex Mono", height: "100%", backgroundColor: "#F8D546" }} >
+      <Header border="2px solid black" sx={{ bgcolor: "black",maxWidth:"md" }}>
+        <img src="../assets/logo1.jpg" height="200px"></img>
       </Header>
-
-      <Box ref={chatWrapperRef} sx={{  height: "100%", position: "fixed", zIndex: 1, maxWidth: "md", width: "100%", overflowY: "auto", paddingTop: "150px", paddingBottom: "90px", "&::-webkit-scrollbar": { width: "0px" } }}>
-        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", maxWidth: "md", width: "100%" }}>
+      <Box ref={chatWrapperRef}  sx={{ height: "100%", position: "fixed", zIndex: 1, width: "75%", maxWidth:"md", overflowY: "auto", paddingTop: "200px", paddingBottom: "200px", "&::-webkit-scrollbar": { width: "0px" } }}>
+        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", width: "100%" }}>
           {messages.map((item, index) => (
             <Box key={index} padding={1}>
-              <Box sx={{ width:"80%", padding: 2, bgcolor: item.type === messageType.answer ? "#C3F5FF" : "#ffc6c8  ", ml: item.type === messageType.answer ? "20%" : "0%", borderRadius: 3 }}>
+              <Box sx={{ width: "80%", padding: 2, bgcolor: item.type === messageType.answer ? "#FA794A" : "#F8EAAF", color: item.type === messageType.answer ? "White" : "#303030", ml: item.type === messageType.answer ? "20%" : "0%", borderRadius: 3 }}>
                 {index === messages.length - 1 ? (
                   item.type === messageType.answer ? (
                     <TypewriterComp text={item.content}></TypewriterComp>
@@ -87,12 +85,20 @@ const HomePage = () => {
           ))}
         </Box>
       </Box>
-      <Stack width="100%" alignItems="center" justifyContent="center" borderTop="1px solid #c6c8cc" bgcolor="#F5F5DC" zIndex={3} >
-        <Box padding={2} width="100%" maxWidth="md" > <FormControl fullWidth variant="outlined">
-          <OutlinedInput inputRef={inputRef} sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }} endAdornment={onRequest ? (<CircularProgress size="1.5rem" />) : (<SendOutlinedIcon />)}
-            autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Send a message..." />
-        </FormControl>
+      <Stack padding={2} paddingBottom={0} width="75%" bgcolor="#F8D546" maxWidth="md"  zIndex={3} alignItems="center">
+        <Box width="100%" maxWidth="md" border="solid 0.25px #F8B155" >
+          <FormControl fullWidth variant="outlined">
+            <OutlinedInput inputRef={inputRef} sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }} endAdornment={onRequest ? (<CircularProgress size="1.5rem" />) : (<SendOutlinedIcon />)}
+              autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Send a message..." />
+          </FormControl>
         </Box>
+        <Box sx={{ marginTop: "10px", marginBottom: "10px" }}>
+          <Button variant="outlined" sx={{ marginRight: "30px" }} >Become a sponsor</Button>
+          <Button variant="outlined" sx={{ marginLeft: "30px" }}>Donate</Button>
+        </Box>
+          <a href="https://vinestrat.com">
+            <img src="../assets/footer.jpg" style={{ marginLeft: "30px" }} href="#"></img>
+          </a>
       </Stack>
     </Stack>
   );
