@@ -63,7 +63,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Stack alignItems="center" justifyContent="space-between" sx={{ padding:"10rem, 15rem", fontFamily: "IBM Plex Mono", height:"100%", backgroundColor: "#F8D546" }} >
+    <Stack alignItems="center" justifyContent="space-between" sx={{ padding:"10rem, 15rem", fontFamily: "IBM_Plex_Mono", height:"100%", backgroundColor: "#F8D546" }} >
       <Header x={{width:"75%"}}>
         <img src="../assets/logo1.jpg" className="logoimage" style={{zIndex:0}}></img>
       </Header>
@@ -86,7 +86,7 @@ const HomePage = () => {
       </Box>
       <Stack paddingBottom={0} width="100%" bgcolor="#F8D546" maxWidth="1000px" sx={{width:"75%"}} zIndex={3} alignItems="center">
         <div style={{width:"100%", height:"10px", backgroundColor:"#F8D546"}}></div>
-        <Box width="75%" maxWidth="1000px" bgcolor="#F8D546" border = "solid 1px gray">
+        <Box width="100%" maxWidth="1000px" bgcolor="#F8D546" border = "solid 1px gray">
           <FormControl fullWidth variant="outlined">
             <OutlinedInput inputRef={inputRef} sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }} endAdornment={onRequest ? (<CircularProgress size="1.5rem" />) : (<SendOutlinedIcon />)}
               autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Send a message..." />
