@@ -1,17 +1,18 @@
 html {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-      sans-serif, Apple Color Emoji, Segoe UI Emoji;
-  }
-  .e-multiselect.e-input-group .e-multi-select-wrapper {
-    background-color: red;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji;
 }
 
-.css-b62m3t-container{
-  color:deepskyblue;
+.e-multiselect.e-input-group .e-multi-select-wrapper {
+  background-color: red;
 }
 
-.rmsc{
-  color:deepskyblue;
+.css-b62m3t-container {
+  color: deepskyblue;
+}
+
+.rmsc {
+  color: deepskyblue;
 }
 
 .textareacomp {
@@ -22,6 +23,50 @@ html {
   letter-spacing: 0.00938em;
   height: 181px;
   border-radius: 0.3rem;
-  width:100%;
+  width: 100%;
   padding: 15px;
+}
+
+.bottomButtons {
+  margin-top: 10px;
+  gap: 200px;
+}
+
+.logoimage {
+  height: 200px;
+}
+
+.mybody {
+  padding-top: 200px;
+}
+
+.myheader {
+  height: 200px;
+}
+
+.balloon {
+  padding: 1rem;
+}
+
+@media screen and (max-width: 690px) {
+  .bottomButtons {
+    margin-top: 10px;
+    gap: 50px;
+  }
+
+  .balloon {
+    padding: 0.5rem;
+  }
+
+  .mybody {
+    padding-top: 150px;
+  }
+
+  .logoimage {
+    height: 150px;
+  }
+
+  .myheader {
+    height: 150px;
+  }
 }

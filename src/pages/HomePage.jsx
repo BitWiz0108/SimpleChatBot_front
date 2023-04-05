@@ -5,8 +5,7 @@ import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import { Stack, Box, FormControl, OutlinedInput, CircularProgress, Button } from "@mui/material";
 import TypewriterComp from "../components/TypeWriterComp";
-import Image from 'mui-image';
-import { Transfer } from "antd";
+import "../styles.css";
 
 const messageType = {
   answer: "answer",
@@ -64,15 +63,15 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Stack alignItems="center" justifyContent="space-between" sx={{ padding: "10rem, 15rem", fontFamily: "IBM Plex Mono", height: "100%", backgroundColor: "#F8D546" }} >
-      <Header border="2px solid black" sx={{ bgcolor: "black",maxWidth:"md" }}>
-        <img src="../assets/logo1.jpg" height="200px"></img>
+    <Stack alignItems="center" justifyContent="space-between" sx={{ padding:"10rem, 15rem", fontFamily: "IBM Plex Mono", height:"100%", backgroundColor: "#F8D546" }} >
+      <Header x={{width:"75%"}}>
+        <img src="../assets/logo1.jpg" className="logoimage" style={{zIndex:0}}></img>
       </Header>
-      <Box ref={chatWrapperRef}  sx={{ height: "100%", position: "fixed", zIndex: 1, width: "75%", maxWidth:"md", overflowY: "auto", paddingTop: "200px", paddingBottom: "200px", "&::-webkit-scrollbar": { width: "0px" } }}>
+      <Box ref={chatWrapperRef} className="mybody" sx={{ height: "100%", position: "fixed", overflowY: "auto", zIndex: 1, width: "75%", maxWidth: "1000px", paddingBottom: "200px", "&::-webkit-scrollbar": { width: "0px" } }}>
         <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", width: "100%" }}>
           {messages.map((item, index) => (
             <Box key={index} padding={1}>
-              <Box sx={{ width: "80%", padding: 2, bgcolor: item.type === messageType.answer ? "#FA794A" : "#F8EAAF", color: item.type === messageType.answer ? "White" : "#303030", ml: item.type === messageType.answer ? "20%" : "0%", borderRadius: 3 }}>
+              <Box className="balloon" sx={{ width: "80%", bgcolor: item.type === messageType.answer ? "#FA794A" : "#F8EAAF", color: item.type === messageType.answer ? "White" : "#303030", ml: item.type === messageType.answer ? "20%" : "0%", borderRadius: 3 }}>
                 {index === messages.length - 1 ? (
                   item.type === messageType.answer ? (
                     <TypewriterComp text={item.content}></TypewriterComp>
@@ -85,20 +84,23 @@ const HomePage = () => {
           ))}
         </Box>
       </Box>
-      <Stack padding={2} paddingBottom={0} width="75%" bgcolor="#F8D546" maxWidth="md"  zIndex={3} alignItems="center">
-        <Box width="100%" maxWidth="md" border="solid 0.25px #F8B155" >
+      <Stack paddingBottom={0} width="100%" bgcolor="#F8D546" maxWidth="1000px" sx={{width:"75%"}} zIndex={3} alignItems="center">
+        <div style={{width:"100%", height:"10px", backgroundColor:"#F8D546"}}></div>
+        <Box width="75%" maxWidth="1000px" bgcolor="#F8D546" border = "solid 1px gray">
           <FormControl fullWidth variant="outlined">
             <OutlinedInput inputRef={inputRef} sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }} endAdornment={onRequest ? (<CircularProgress size="1.5rem" />) : (<SendOutlinedIcon />)}
               autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Send a message..." />
           </FormControl>
         </Box>
-        <Box sx={{ marginTop: "10px", marginBottom: "10px" }}>
-          <Button variant="outlined" sx={{ marginRight: "30px" }} >Become a sponsor</Button>
-          <Button variant="outlined" sx={{ marginLeft: "30px" }}>Donate</Button>
-        </Box>
-          <a href="https://vinestrat.com">
-            <img src="../assets/footer.jpg" style={{ marginLeft: "30px" }} href="#"></img>
+        <Box sx={{backgroundColor:"#F8D546", width:"100%", paddingBottom:"0"}}>
+          <Box className="bottomButtons" sx={{ justifyContent:"center", backgroundColor:"#F8D546", alignItems:"center", marginBottom: "10px", gap: "auto", display: "flex" }}>
+            <Button variant="outlined" >Sponsor</Button>
+            <Button variant="outlined" >Donate</Button>
+          </Box>
+          <a href="https://vinestrat.com" style={{height:"100%"}}>  
+            <img src="../assets/footer.jpg" style={{width:"100%"}} href="#"></img>
           </a>
+        </Box>
       </Stack>
     </Stack>
   );
