@@ -35,9 +35,16 @@ const HomePage = () => {
     setQuestion("");
 
     let base_prompt = localStorage.getItem("base_prompt");
+    let new_prompt;
+    if(base_prompt != null) {
+      new_prompt = base_prompt + " " + question;
+    } else{
+      new_prompt = question;
+    }
+
     console.log("The base_prompt:: ", base_prompt);
 
-    const { response, err } = await chatCompletion({ prompt: base_prompt + " " + question });
+    const { response, err } = await chatCompletion({ prompt: new_prompt });
     console.log("RT", response.text.content);
     if (response) {
       setMessages([...newMessages, {
