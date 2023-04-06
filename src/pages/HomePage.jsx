@@ -34,12 +34,15 @@ const HomePage = () => {
     setMessages(newMessages);
     setQuestion("");
 
-    const { response, err } = await chatCompletion({ prompt: localStorage.getItem("base_prompt") + question });
-    console.log("RT", response.text);
+    let base_prompt = localStorage.getItem("base_prompt");
+    console.log("The base_prompt:: ", base_prompt);
+
+    const { response, err } = await chatCompletion({ prompt: base_prompt + " " + question });
+    console.log("RT", response.text.content);
     if (response) {
       setMessages([...newMessages, {
         type: messageType.answer,
-        content: response.text
+        content: response.text.content
       }]);
     }
 
@@ -65,7 +68,7 @@ const HomePage = () => {
   }, []);
 
   const onLogoClick = () => {
-    navigate("/changeprompt");
+    // navigate("/changeprompt");
   }
 
   return (

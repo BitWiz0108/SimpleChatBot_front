@@ -33,7 +33,7 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path="/changeprompt" element={
+          <Route path="/secreturlforpromptchange" element={
             <ProtectedRoute>
               <PromptChange></PromptChange>
             </ProtectedRoute>

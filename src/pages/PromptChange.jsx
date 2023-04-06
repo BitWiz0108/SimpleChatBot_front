@@ -15,7 +15,6 @@ const PromptChange = () => {
     const handleTextChange = (event) => {
         setText(event.target.value);
     };
-    console.log("Hey text:", text);
 
     useEffect(() => {
         setText(localStorage.getItem("base_prompt"));
