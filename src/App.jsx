@@ -2,6 +2,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
+import PromptChange from "./pages/PromptChange";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { ToastContainer } from "react-toastify";
@@ -29,6 +30,12 @@ function App() {
           <Route path="/" element={
             <ProtectedRoute>
               <HomePage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/changeprompt" element={
+            <ProtectedRoute>
+              <PromptChange></PromptChange>
             </ProtectedRoute>
           } />
         </Routes>

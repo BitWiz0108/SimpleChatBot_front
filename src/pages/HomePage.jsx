@@ -1,4 +1,6 @@
 import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
+
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { chatCompletion } from "../api/chat.api";
 import { toast } from "react-toastify";
@@ -13,7 +15,7 @@ const messageType = {
 };
 
 const HomePage = () => {
-
+  const navigate = useNavigate();
   const inputRef = useRef();
   const chatWrapperRef = useRef();
 
@@ -32,7 +34,7 @@ const HomePage = () => {
     setMessages(newMessages);
     setQuestion("");
 
-    const { response, err } = await chatCompletion({ prompt: question });
+    const { response, err } = await chatCompletion({ prompt: localStorage.getItem("base_prompt") + question });
     console.log("RT", response.text);
     if (response) {
       setMessages([...newMessages, {
@@ -62,10 +64,14 @@ const HomePage = () => {
     }, 200);
   }, []);
 
+  const onLogoClick = () => {
+    navigate("/changeprompt");
+  }
+
   return (
-    <Stack alignItems="center" justifyContent="space-between" sx={{ padding:"10rem, 15rem", fontFamily: "IBM_Plex_Mono", height:"100%", backgroundColor: "#F8D546" }} >
-      <Header x={{width:"75%"}}>
-        <img src="../assets/logo1.jpg" className="logoimage" style={{zIndex:0}}></img>
+    <Stack alignItems="center" justifyContent="space-between" sx={{ padding: "10rem, 15rem", fontFamily: "IBM_Plex_Mono", height: "100%", backgroundColor: "#F8D546" }} >
+      <Header x={{ width: "75%" }}>
+        <img src="../assets/logo1.jpg" className="logoimage" onClick={onLogoClick} style={{ zIndex: 0 }}></img>
       </Header>
       <Box ref={chatWrapperRef} className="mybody" sx={{ height: "100%", position: "fixed", overflowY: "auto", zIndex: 1, width: "75%", maxWidth: "1000px", paddingBottom: "200px", "&::-webkit-scrollbar": { width: "0px" } }}>
         <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", width: "100%" }}>
@@ -84,21 +90,21 @@ const HomePage = () => {
           ))}
         </Box>
       </Box>
-      <Stack paddingBottom={0} width="100%" bgcolor="#F8D546" maxWidth="1000px" sx={{width:"75%"}} zIndex={3} alignItems="center">
-        <div style={{width:"100%", height:"10px", backgroundColor:"#F8D546"}}></div>
-        <Box width="100%" maxWidth="1000px" bgcolor="#F8D546" border = "solid 1px gray">
+      <Stack paddingBottom={0} width="100%" bgcolor="#F8D546" maxWidth="1000px" sx={{ width: "75%" }} zIndex={3} alignItems="center">
+        <div style={{ width: "100%", height: "10px", backgroundColor: "#F8D546" }}></div>
+        <Box width="100%" maxWidth="1000px" bgcolor="#F8D546" border="solid 1px gray">
           <FormControl fullWidth variant="outlined">
             <OutlinedInput inputRef={inputRef} sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }} endAdornment={onRequest ? (<CircularProgress size="1.5rem" />) : (<SendOutlinedIcon />)}
               autoFocus disabled={onRequest} onKeyUp={onEnterPress} value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Send a message..." />
           </FormControl>
         </Box>
-        <Box sx={{backgroundColor:"#F8D546", width:"100%", paddingBottom:"0"}}>
-          <Box className="bottomButtons" sx={{ justifyContent:"center", backgroundColor:"#F8D546", alignItems:"center", marginBottom: "10px", gap: "auto", display: "flex" }}>
+        <Box sx={{ backgroundColor: "#F8D546", width: "100%", paddingBottom: "0" }}>
+          <Box className="bottomButtons" sx={{ justifyContent: "center", backgroundColor: "#F8D546", alignItems: "center", marginBottom: "10px", gap: "auto", display: "flex" }}>
             <Button variant="outlined" >Sponsor</Button>
             <Button variant="outlined" >Donate</Button>
           </Box>
-          <a href="https://vinestrat.com" style={{height:"100%"}}>  
-            <img src="../assets/footer.jpg" style={{width:"100%"}} href="#"></img>
+          <a href="https://vinestrat.com" style={{ height: "100%" }}>
+            <img src="../assets/footer.jpg" style={{ width: "100%" }} href="#"></img>
           </a>
         </Box>
       </Stack>
